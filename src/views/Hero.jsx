@@ -1,3 +1,11 @@
+/**
+ * ============================================================================
+ * C.D. ALIJARES — PORTADA PRINCIPAL (HERO)
+ * ============================================================================
+ * Sección de bienvenida a pantalla completa con titulares de impacto,
+ * accesos directos principales y fotografía representativa del entorno natural.
+ */
+
 import { ArrowDown, ChevronRight } from "lucide-react";
 import { BDR, BGW, BGL, FG, MFG, OLI } from "../constants";
 
@@ -6,9 +14,10 @@ export default function Hero() {
     <section id="inicio" className="relative min-h-screen flex items-center" style={{ background: BGL }}>
       <div className="max-w-7xl mx-auto px-6 pt-24 pb-16 w-full">
         <div className="grid lg:grid-cols-5 gap-12 items-center">
+          {/* Bloque principal de contenido textual y acciones */}
           <div className="lg:col-span-3">
             <p className="text-xs tracking-[0.35em] uppercase mb-6 font-medium" style={{ color: OLI, fontFamily: "'DM Mono', monospace" }}>
-              Tiro con Arco 3D · Montillo, Jaén
+              Tiro con Arco · Toledo
             </p>
             <h1
               className="leading-[1.06] mb-6 font-bold"
@@ -23,8 +32,10 @@ export default function Hero() {
               <em style={{ color: OLI, fontStyle: "italic" }}>y precisión.</em>
             </h1>
             <p className="text-base mb-10 max-w-md leading-relaxed" style={{ color: MFG }}>
-              C.D. Alijares es un club de tiro con arco tradicional 3D en entorno forestal. Competición, formación y naturaleza para todos los niveles.
+              C.D. Alijares es un club de tiro con arco tradicional 3D en entorno forestal y cubierto. Competición, formación y naturaleza para todos los niveles.
             </p>
+
+            {/* Botones de acción hacia inscripción y horarios */}
             <div className="flex flex-wrap gap-4">
               <a
                 href="#contacto"
@@ -55,25 +66,9 @@ export default function Hero() {
                 Ver horarios
               </a>
             </div>
-
-            <div className="mt-12 flex flex-wrap gap-8">
-              {[
-                { n: "23", label: "Años de historia" },
-                { n: "80+", label: "Socios activos" },
-                { n: "18", label: "Dianas en bosque" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div className="text-3xl font-bold" style={{ fontFamily: "'Spectral', serif", color: OLI }}>
-                    {stat.n}
-                  </div>
-                  <div className="text-xs uppercase tracking-wide" style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}>
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
 
+          {/* Bloque visual: Fotografía del entorno de tiro forestal con tarjeta flotante */}
           <div className="lg:col-span-2 hidden lg:block">
             <div className="relative">
               <div className="overflow-hidden" style={{ height: "520px", border: `1px solid ${BDR}` }}>
@@ -89,10 +84,17 @@ export default function Hero() {
                 style={{ background: BGW, border: `1px solid ${BDR}`, boxShadow: "0 4px 16px rgba(26,24,20,0.08)" }}
               >
                 <div className="text-xs uppercase tracking-widest mb-1" style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}>
-                  Modalidad
+                  Modalidades
                 </div>
-                <div className="font-semibold" style={{ fontFamily: "'Spectral', serif", color: FG }}>
-                  Tiro con Arco 3D
+                <div
+                  className="font-semibold flex flex-col gap-1 text-sm"
+                  style={{ fontFamily: "'Spectral', serif", color: FG }}
+                >
+                  <div>Tiro con Arco 3D</div>
+                  <div>Desnudo</div>
+                  <div>Poleas</div>
+                  <div>Olímpico</div>
+                  <div>Tradicional</div>
                 </div>
               </div>
             </div>
@@ -100,6 +102,7 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* Indicador de desplazamiento hacia la sección de horarios */}
       <a href="#horarios" className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce" style={{ color: OLI }}>
         <ArrowDown className="w-5 h-5" />
       </a>

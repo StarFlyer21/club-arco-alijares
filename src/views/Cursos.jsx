@@ -1,11 +1,21 @@
+/**
+ * ============================================================================
+ * C.D. ALIJARES — SECCIÓN DE FORMACIÓN (CURSOS Y TALLERES)
+ * ============================================================================
+ * Catálogo interactivo de cursos de iniciación y talleres técnicos.
+ * Incluye pestañas de filtrado dinámico por modalidad y detalles de plazas.
+ */
+
 import { Calendar, Clock } from "lucide-react";
 import { BGW, BDR, COURSES, FG, MFG, OLI, RED } from "../constants";
 import SectionHeader from "../components/SectionHeader";
 import { useState } from "react";
 
 export default function Cursos() {
+  // Estado local para alternar entre 'todos', 'cursos' o 'talleres'
   const [courseTab, setCourseTab] = useState("todos");
 
+  // Filtrado de cursos según la pestaña activa
   const filteredCourses = COURSES.filter((course) => {
     if (courseTab === "todos") {
       return true;
@@ -23,6 +33,7 @@ export default function Cursos() {
           subtitle="Formación presencial impartida por monitores federados. Plazas limitadas, inscripción previa obligatoria."
         />
 
+        {/* Selector de pestañas para filtrado de actividades */}
         <div className="flex gap-2 mb-10 border-b" style={{ borderColor: BDR }}>
           {[
             { key: "todos", label: "Todos" },
@@ -44,6 +55,7 @@ export default function Cursos() {
           ))}
         </div>
 
+        {/* Cuadrícula de tarjetas formativas */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCourses.map((course, index) => (
             <div
@@ -57,6 +69,7 @@ export default function Cursos() {
                 event.currentTarget.style.borderColor = BDR;
               }}
             >
+              {/* Encabezado de la tarjeta: Tipo de formación y plazas ofertadas */}
               <div
                 className="px-4 py-1.5 flex items-center justify-between"
                 style={{ background: course.type === "taller" ? "rgba(192,57,43,0.07)" : "rgba(122,140,56,0.07)" }}
@@ -72,6 +85,7 @@ export default function Cursos() {
                 </span>
               </div>
 
+              {/* Información descriptiva del curso */}
               <div className="p-5 flex flex-col flex-1">
                 <div className="flex items-center gap-2 text-xs mb-3" style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}>
                   <Calendar className="w-3.5 h-3.5" />
@@ -83,6 +97,8 @@ export default function Cursos() {
                 <p className="text-sm leading-relaxed mb-4" style={{ color: MFG }}>
                   {course.desc}
                 </p>
+                
+                {/* Duración y nivel de exigencia deportiva */}
                 <div className="flex items-center justify-between text-xs pt-4 mb-4" style={{ borderTop: `1px solid ${BDR}`, color: MFG, fontFamily: "'DM Mono', monospace" }}>
                   <span className="flex items-center gap-1.5">
                     <Clock className="w-3 h-3" />
@@ -90,6 +106,8 @@ export default function Cursos() {
                   </span>
                   <span>{course.level}</span>
                 </div>
+
+                {/* Llamada a la acción hacia la solicitud de matrícula */}
                 <button
                   className="w-full text-xs py-2.5 font-medium tracking-wide uppercase transition-colors duration-200"
                   style={{ background: course.type === "taller" ? RED : OLI, color: "#FFF" }}

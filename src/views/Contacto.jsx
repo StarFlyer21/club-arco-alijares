@@ -1,9 +1,18 @@
+/**
+ * ============================================================================
+ * C.D. ALIJARES — SECCIÓN DE CONTACTO E INSCRIPCIÓN
+ * ============================================================================
+ * Gestiona el formulario oficial de inscripción/contacto conectado a FormSubmit,
+ * los datos directos del club y el visor interactivo 360° de Street View.
+ */
+
 import { useState } from "react";
 import { MapPin, Mail, Phone, Target, Loader2 } from "lucide-react";
 import { BDR, BGL, BGW, FG, MFG, OLI } from "../constants";
 import SectionHeader from "../components/SectionHeader";
 
 export default function Contacto() {
+  // Estado local para los campos del formulario y el selector de discapacidad
   const [disability, setDisability] = useState(null);
   const [form, setForm] = useState({
     name: "",
@@ -15,9 +24,13 @@ export default function Contacto() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  // 1. Pon aquí el correo de Webmail del club donde deben llegar las solicitudes
+  // Buzón corporativo receptor de las solicitudes procesadas
   const CORREO_DESTINO = "info@arcoalijares3d.es";
 
+  /**
+   * Envía los datos del formulario a través del endpoint AJAX de FormSubmit
+   * para procesar el correo de notificación sin redirecciones externas.
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -38,7 +51,7 @@ export default function Contacto() {
           Observaciones: form.observations || "Sin observaciones adicionales",
           _subject: `Nueva Solicitud Web: ${form.name}`,
           _template: "table",
-          _captcha: "false", // Evita que salte el captcha molesto al usuario
+          _captcha: "false",
         }),
       });
 
@@ -60,10 +73,11 @@ export default function Contacto() {
         <SectionHeader
           n="07"
           title="Formulario de Inscripción"
-          subtitle="Rellena el formulario y nos pondremos en contacto contigo en un plazo de 48 horas hábiles."
+          subtitle="Rellena el formulario y nos pondremos en contacto contigo."
         />
 
         <div className="grid lg:grid-cols-3 gap-12 items-start">
+          {/* Bloque izquierdo: Formulario o estado de éxito */}
           <div className="lg:col-span-2">
             {submitted ? (
               <div className="border p-10 text-center" style={{ borderColor: `${OLI}55`, background: BGW }}>
@@ -86,12 +100,14 @@ export default function Contacto() {
                 className="space-y-6"
                 style={{ background: BGW, padding: "2rem", border: `1px solid ${BDR}` }}
               >
+                {/* Mensaje de error si falla la llamada de red */}
                 {errorMsg && (
                   <div className="p-3 bg-red-100 border border-red-300 text-red-700 text-xs">
                     {errorMsg}
                   </div>
                 )}
 
+                {/* Campos personales: Nombre y Correo electrónico */}
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-xs font-medium uppercase tracking-widest mb-2" style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}>
@@ -116,13 +132,14 @@ export default function Contacto() {
                       required
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      placeholder="nombre@ejemplo.com"
+                      placeholder="correo@gmail.com"
                       className="w-full px-4 py-3 text-sm border outline-none transition-colors duration-200"
                       style={{ borderColor: BDR, background: BGL, color: FG }}
                     />
                   </div>
                 </div>
 
+                {/* Teléfono de contacto */}
                 <div>
                   <label className="block text-xs font-medium uppercase tracking-widest mb-2" style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}>
                     Teléfono de contacto *
@@ -138,6 +155,7 @@ export default function Contacto() {
                   />
                 </div>
 
+                {/* Selector de adaptación por discapacidad */}
                 <div>
                   <label className="block text-xs font-medium uppercase tracking-widest mb-3" style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}>
                     Discapacidad reconocida
@@ -161,6 +179,7 @@ export default function Contacto() {
                   </div>
                 </div>
 
+                {/* Observaciones adicionales */}
                 <div>
                   <label className="block text-xs font-medium uppercase tracking-widest mb-2" style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}>
                     Observaciones
@@ -176,6 +195,7 @@ export default function Contacto() {
                   />
                 </div>
 
+                {/* Envío con indicador de carga reactivo */}
                 <button
                   type="submit"
                   disabled={loading}
@@ -193,16 +213,18 @@ export default function Contacto() {
             )}
           </div>
 
+          {/* Bloque derecho: Tarjetas de información y vista Street View */}
           <div className="space-y-5">
+            {/* Datos de contacto directos */}
             <div className="border p-6" style={{ background: BGW, borderColor: BDR }}>
               <h4 className="font-semibold text-lg mb-4" style={{ fontFamily: "'Spectral', serif" }}>
                 Información de Contacto
               </h4>
               <div className="space-y-3 text-sm">
                 {[
-                  { Icon: MapPin, content: <span>Paraje Las Alijares, s/n<br />Montillo, 23270 · Jaén</span> },
-                  { Icon: Phone, content: <span>+34 953 000 000</span> },
-                  { Icon: Mail, content: <span>info@cdalijares.es</span> },
+                  { Icon: MapPin, content: <span>Calle del Santísimo Cristo de la Sala, s/n<br />45593 Bargas · Toledo</span> },
+                  { Icon: Phone, content: <span>+34 647 43 49 14</span> },
+                  { Icon: Mail, content: <span>info@arcoalijares3d.es</span> },
                 ].map(({ Icon, content }, index) => (
                   <div key={index} className="flex items-start gap-3" style={{ color: MFG }}>
                     <Icon className="w-4 h-4 mt-0.5 shrink-0" style={{ color: OLI }} />
@@ -212,17 +234,46 @@ export default function Contacto() {
               </div>
             </div>
 
+            {/* Visor interactivo 360° de Street View del campo de tiro */}
             <div
-              className="h-52 flex flex-col items-center justify-center border"
-              style={{ background: "rgba(122,140,56,0.05)", borderColor: BDR }}
+              className="border overflow-hidden flex flex-col"
+              style={{ background: BGW, borderColor: BDR }}
             >
-              <MapPin className="w-7 h-7 mb-2" style={{ color: OLI }} />
-              <p className="text-sm font-medium" style={{ color: FG }}>
-                Instalaciones Oficiales
-              </p>
-              <p className="text-xs mt-1" style={{ color: MFG }}>
-                Paraje Las Alijares · Montillo
-              </p>
+              <div className="relative w-full h-72">
+                <iframe
+                  title="Street View Campo C.D. Alijares"
+                  src="https://www.google.com/maps/embed?pb=!4v1789063564676!6m8!1m7!1skMvn65JWRWb5vV0HNM0Gpw!2m2!1d39.94415637652533!2d-4.016324364416731!3f20.233697758185645!4f2.3648013642931858!5f0.7820865974627469"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+              </div>
+              <div className="p-4 flex items-center justify-between gap-3 text-xs" style={{ borderTop: `1px solid ${BDR}` }}>
+                <div>
+                  <p className="font-semibold" style={{ color: FG }}>Acceso e Instalaciones</p>
+                  <p style={{ color: MFG }}>Bargas · Toledo</p>
+                </div>
+                <a
+                  href="https://maps.app.goo.gl/uPr9VMqT4rjhQdka6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 font-medium border transition-colors duration-200 shrink-0"
+                  style={{ borderColor: OLI, color: OLI }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = OLI;
+                    e.currentTarget.style.color = "#FFF";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "transparent";
+                    e.currentTarget.style.color = OLI;
+                  }}
+                >
+                  Pantalla completa ↗
+                </a>
+              </div>
             </div>
           </div>
         </div>

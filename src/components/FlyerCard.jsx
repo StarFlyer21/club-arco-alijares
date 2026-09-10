@@ -1,13 +1,30 @@
+/**
+ * ============================================================================
+ * C.D. ALIJARES — TARJETA DE CARTEL DEPORTIVO / EVENTO (FLYERCARD)
+ * ============================================================================
+ * Presentación visual en proporción 3:4 que emula un cartel oficial de tirada
+ * o competición. Gestiona la previsualización del documento técnico en PDF.
+ * 
+ * Props:
+ *  - title: Nombre oficial del trofeo o tirada deportiva.
+ *  - subtitle: Modalidad o localización específica dentro del bosque.
+ *  - date: Fecha formateada visible para el usuario.
+ *  - category: Tipología ('Tirada Local', 'Competición Oficial', 'Liga').
+ *  - color: Tono cromático de fondo del cartel.
+ *  - pdf: Ruta estática al archivo PDF en /public (o null si está en preparación).
+ */
+
 import { Eye } from "lucide-react";
 import { BDR, FG } from "../constants";
 
-// Recibimos "pdf" directamente de las constantes
 export default function FlyerCard({ title, subtitle, date, category, color, pdf }) {
   const hasPdf = Boolean(pdf);
 
   return (
     <div className="flex flex-col border overflow-hidden" style={{ borderColor: BDR, background: "#FFFFFF" }}>
+      {/* Lienzo del cartel en proporción vertical 3:4 */}
       <div className="aspect-[3/4] flex flex-col" style={{ background: color }}>
+        {/* Franja superior institucional */}
         <div className="px-4 py-3 flex items-center justify-between" style={{ background: "rgba(0,0,0,0.18)" }}>
           <span className="text-xs font-semibold tracking-widest" style={{ color: "rgba(255,255,255,0.85)", fontFamily: "'DM Mono', monospace" }}>
             C.D. ALIJARES
@@ -19,6 +36,7 @@ export default function FlyerCard({ title, subtitle, date, category, color, pdf 
           </svg>
         </div>
 
+        {/* Cuerpo central: Diana concéntrica y datos de la competición */}
         <div className="flex-1 flex flex-col items-center justify-center px-5 py-4">
           <svg width="72" height="72" viewBox="0 0 72 72" className="mb-4 opacity-30">
             <circle cx="36" cy="36" r="34" fill="none" stroke="white" strokeWidth="1" />
@@ -38,6 +56,7 @@ export default function FlyerCard({ title, subtitle, date, category, color, pdf 
           </p>
         </div>
 
+        {/* Franja inferior con la fecha del evento */}
         <div className="px-4 py-3 text-center" style={{ background: "rgba(0,0,0,0.25)" }}>
           <span className="text-sm font-semibold tracking-widest" style={{ color: "#FFFFFF", fontFamily: "'DM Mono', monospace" }}>
             {date}
@@ -45,37 +64,36 @@ export default function FlyerCard({ title, subtitle, date, category, color, pdf 
         </div>
       </div>
 
+      {/* Botón de acceso al PDF oficial del evento */}
       <div className="p-4">
-        <a
-          href={hasPdf ? pdf : undefined}
-          target={hasPdf ? "_blank" : undefined}
-          rel={hasPdf ? "noopener noreferrer" : undefined}
-          onClick={(e) => {
-            if (!hasPdf) {
-              e.preventDefault();
-              alert("Cartel o programa no disponible todavía.");
-            }
-          }}
-          className={`w-full flex items-center justify-center gap-2 text-xs font-medium py-2.5 px-3 border transition-colors duration-200 text-center ${
-            hasPdf ? "cursor-pointer" : "opacity-50 cursor-not-allowed"
-          }`}
-          style={{ border: `1px solid ${BDR}`, color: FG }}
-          onMouseEnter={(event) => {
-            if (hasPdf) {
+        {hasPdf ? (
+          <a
+            href={pdf}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full flex items-center justify-center gap-2 text-xs font-medium py-2.5 px-3 border transition-colors duration-200 text-center no-underline cursor-pointer"
+            style={{ border: `1px solid ${BDR}`, color: FG }}
+            onMouseEnter={(event) => {
               event.currentTarget.style.borderColor = "#7A8C38";
               event.currentTarget.style.color = "#7A8C38";
-            }
-          }}
-          onMouseLeave={(event) => {
-            if (hasPdf) {
+            }}
+            onMouseLeave={(event) => {
               event.currentTarget.style.borderColor = BDR;
               event.currentTarget.style.color = FG;
-            }
-          }}
-        >
-          <Eye className="w-3.5 h-3.5" />
-          {hasPdf ? "Previsualizar Cartel / Programa (PDF)" : "Cartel Próximamente"}
-        </a>
+            }}
+          >
+            <Eye className="w-3.5 h-3.5" />
+            Previsualizar Cartel / Programa (PDF)
+          </a>
+        ) : (
+          <div
+            className="w-full flex items-center justify-center gap-2 text-xs font-medium py-2.5 px-3 border text-center opacity-60 cursor-not-allowed select-none"
+            style={{ border: `1px solid ${BDR}`, color: FG }}
+          >
+            <Eye className="w-3.5 h-3.5" />
+            Cartel Próximamente
+          </div>
+        )}
       </div>
     </div>
   );

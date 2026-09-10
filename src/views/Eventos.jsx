@@ -1,15 +1,23 @@
+/**
+ * ============================================================================
+ * C.D. ALIJARES — SECCIÓN DE PRÓXIMOS EVENTOS Y TIRADAS
+ * ============================================================================
+ * Recupera los eventos registrados, descarta las fechas ya vencidas mediante
+ * comparación temporal con la fecha de hoy y los ordena cronológicamente.
+ */
+
 import { EVENTS } from "../constants";
 import SectionHeader from "../components/SectionHeader";
 import FlyerCard from "../components/FlyerCard";
 
 export default function Eventos() {
-  // Obtenemos la fecha de hoy a las 00:00:00 local
+  // Marca temporal de referencia normalizada a la medianoche local
   const hoy = new Date();
   hoy.setHours(0, 0, 0, 0);
 
-  // 1. Filtramos solo los eventos cuya fecha sea hoy o futura
-  // 2. Los ordenamos cronológicamente (el más cercano primero)
-  // 3. Tomamos únicamente los 6 primeros
+  // 1. Descarte de eventos pasados o sin fecha ISO definida
+  // 2. Ordenación cronológica ascendente (fechas más próximas primero)
+  // 3. Limitación de renderizado a un máximo de 6 tarjetas
   const proximosEventos = EVENTS
     .filter((evento) => {
       if (!evento.isoDate) return false;
@@ -32,6 +40,7 @@ export default function Eventos() {
           subtitle="Competiciones y tiradas oficiales organizadas por el club. Consulta el cartel y programa de cada evento."
         />
 
+        {/* Presentación de carteles activos o mensaje si no hay jornadas previstas */}
         {proximosEventos.length > 0 ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
             {proximosEventos.map((event) => (

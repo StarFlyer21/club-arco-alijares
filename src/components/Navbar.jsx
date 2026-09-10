@@ -1,11 +1,26 @@
+/**
+ * ============================================================================
+ * C.D. ALIJARES — CABECERA Y BARRA DE NAVEGACIÓN (NAVBAR)
+ * ============================================================================
+ * Barra fija superior responsive con detección de desplazamiento:
+ *  - Escudo institucional oficial ampliado a la izquierda.
+ *  - Menú de navegación ancla con efecto hover sincronizado con la paleta.
+ *  - Botón de llamada a la acción hacia el formulario de inscripción (#contacto).
+ *  - Desplegable móvil accesible con alternancia de icono (hamburguesa / cierre).
+ */
+
 import { useEffect, useState } from "react";
 import { ChevronRight, Menu, X } from "lucide-react";
-import { BDR, BGW, FG, MFG, NAV_LINKS, OLI, RED } from "../constants";
+import { BDR, BGW, FG, MFG, NAV_LINKS, OLI } from "../constants";
 
 export default function Navbar() {
    const [mobileOpen, setMobileOpen] = useState(false);
    const [scrolled, setScrolled] = useState(false);
 
+   /**
+    * Listener pasivo para detectar si el usuario ha hecho scroll.
+    * Añade borde inferior y sombra sutil para despegar el menú del contenido.
+    */
    useEffect(() => {
       const onScroll = () => setScrolled(window.scrollY > 50);
       window.addEventListener("scroll", onScroll, { passive: true });
@@ -23,25 +38,40 @@ export default function Navbar() {
             boxShadow: scrolled ? "0 1px 12px rgba(26,24,20,0.07)" : "none",
          }}
       >
-         <div className="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between">
-            <a href="#inicio" className="flex items-center gap-3">
-               <div className="w-9 h-9 rounded-full flex items-center justify-center border-2" style={{ background: BGW, borderColor: FG }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24">
-                     <circle cx="12" cy="12" r="10" fill="none" stroke={RED} strokeWidth="1.8" />
-                     <circle cx="12" cy="12" r="6" fill="none" stroke={FG} strokeWidth="1.5" />
-                     <circle cx="12" cy="12" r="3" fill={RED} />
-                  </svg>
+         <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
+            {/* Identidad institucional: Escudo oficial del club y tipografía corporativa */}
+            <a href="#inicio" className="flex items-center gap-4 group">
+               {/* 
+                  Contenedor del escudo ampliado:
+                  Altura fijada en h-14 (56px) con object-contain para asegurar 
+                  la nitidez del óvalo y los detalles interiores del dibujo.
+               */}
+               <div className="h-14 w-20 flex items-center justify-center shrink-0">
+                  <img
+                     src="/Arcoalijares.png"
+                     alt="Escudo Oficial C.D. Alijares Tiro con Arco"
+                     className="max-h-full max-w-full object-contain transition-transform duration-200 group-hover:scale-105"
+                     loading="eager"
+                  />
                </div>
+
                <div>
-                  <div className="text-base font-semibold leading-none" style={{ fontFamily: "'Spectral', serif", color: FG }}>
+                  <div
+                     className="text-lg font-semibold leading-tight tracking-tight"
+                     style={{ fontFamily: "'Spectral', serif", color: FG }}
+                  >
                      C.D. Alijares
                   </div>
-                  <div className="text-[10px] tracking-[0.2em] uppercase" style={{ color: MFG }}>
-                     Club Deportivo
+                  <div
+                     className="text-[10px] tracking-[0.22em] uppercase mt-0.5"
+                     style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}
+                  >
+                     Tiro con Arco · 3D
                   </div>
                </div>
             </a>
 
+            {/* Menú de navegación de escritorio */}
             <nav className="hidden md:flex items-center gap-7">
                {NAV_LINKS.map((link) => (
                   <a
@@ -59,9 +89,11 @@ export default function Navbar() {
                      {link.label}
                   </a>
                ))}
+
+               {/* Botón de acceso directo a inscripción */}
                <a
                   href="#contacto"
-                  className="text-xs tracking-widest uppercase px-4 py-2 transition-colors duration-200 inline-flex items-center gap-1.5"
+                  className="text-xs tracking-widest uppercase px-4 py-2 transition-colors duration-200 inline-flex items-center gap-1.5 font-medium"
                   style={{ background: OLI, color: "#FFF" }}
                   onMouseEnter={(event) => {
                      event.currentTarget.style.background = "#6A7B2E";
@@ -74,24 +106,42 @@ export default function Navbar() {
                </a>
             </nav>
 
-            <button className="md:hidden p-1" style={{ color: FG }} onClick={() => setMobileOpen((open) => !open)}>
+            {/* Botón hamburguesa para dispositivos móviles */}
+            <button
+               className="md:hidden p-1.5 transition-colors duration-200"
+               style={{ color: FG }}
+               onClick={() => setMobileOpen((open) => !open)}
+               aria-label={mobileOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+            >
                {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
          </div>
 
+         {/* Menú desplegable para vista móvil */}
          {mobileOpen && (
-            <div className="md:hidden px-6 pb-5 flex flex-col gap-4" style={{ borderTop: `1px solid ${BDR}`, background: BGW }}>
+            <div
+               className="md:hidden px-6 py-4 flex flex-col gap-4"
+               style={{ borderTop: `1px solid ${BDR}`, background: BGW }}
+            >
                {NAV_LINKS.map((link) => (
                   <a
                      key={link.href}
                      href={link.href}
-                     className="text-xs tracking-widest uppercase"
+                     className="text-xs tracking-widest uppercase py-1"
                      style={{ color: MFG }}
                      onClick={() => setMobileOpen(false)}
                   >
                      {link.label}
                   </a>
                ))}
+               <a
+                  href="#contacto"
+                  className="text-xs tracking-widest uppercase py-2.5 px-4 text-center font-medium mt-1 inline-flex items-center justify-center gap-1.5"
+                  style={{ background: OLI, color: "#FFF" }}
+                  onClick={() => setMobileOpen(false)}
+               >
+                  Inscríbete <ChevronRight className="w-3.5 h-3.5" />
+               </a>
             </div>
          )}
       </header>
