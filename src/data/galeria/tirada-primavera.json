@@ -1,10 +1,10 @@
 {
   "titulo": "Tirada de Primavera 3D",
   "fecha": "2026-04-20",
-  "portada": "https://images.unsplash.com/photo-1511497584788-87676104235f?w=1200&fit=crop",
+  "portada": "/galeria/uploads/archery4-4243524678.jpg",
   "fotos": [
-    { "imagen": "https://images.unsplash.com/photo-1511497584788-87676104235f?w=1200&fit=crop" },
-    { "imagen": "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200&fit=crop" },
-    { "imagen": "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1200&fit=crop" }
-  ]
+    "/galeria/uploads/document-172202098.jpg",
+    "/galeria/uploads/1-spring-usa-archery-2891839965.jpg"
+  ],
+  "categoria": "Social / Entrenamientos"
 }
