@@ -3,8 +3,9 @@
  * C.D. ALIJARES — CABECERA Y BARRA DE NAVEGACIÓN (NAVBAR)
  * ============================================================================
  * Barra fija superior responsive con detección de desplazamiento:
- *  - Escudo institucional oficial ampliado a la izquierda.
+ *  - Escudo institucional oficial ampliado a la izquierda con enlace a inicio.
  *  - Menú de navegación ancla con efecto hover sincronizado con la paleta.
+ *  - Nuevo acceso a la vista Galería (escritorio y móvil).
  *  - Botón de llamada a la acción hacia el formulario de inscripción (#contacto).
  *  - Desplegable móvil accesible con alternancia de icono (hamburguesa / cierre).
  */
@@ -13,7 +14,7 @@ import { useEffect, useState } from "react";
 import { ChevronRight, Menu, X } from "lucide-react";
 import { BDR, BGW, FG, MFG, NAV_LINKS, OLI } from "../constants";
 
-export default function Navbar() {
+export default function Navbar({ onIrAGaleria, onIrAInicio }) {   
    const [mobileOpen, setMobileOpen] = useState(false);
    const [scrolled, setScrolled] = useState(false);
 
@@ -40,7 +41,11 @@ export default function Navbar() {
       >
          <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
             {/* Identidad institucional: Escudo oficial del club y tipografía corporativa */}
-            <a href="#inicio" className="flex items-center gap-4 group">
+            <a 
+               href="#inicio" 
+               onClick={onIrAInicio}
+               className="flex items-center gap-4 group cursor-pointer"
+            >
                {/* 
                   Contenedor del escudo ampliado:
                   Altura fijada en h-14 (56px) con object-contain para asegurar 
@@ -77,6 +82,7 @@ export default function Navbar() {
                   <a
                      key={link.href}
                      href={link.href}
+                     onClick={onIrAInicio}
                      className="text-xs tracking-widest uppercase transition-colors duration-200"
                      style={{ color: MFG }}
                      onMouseEnter={(event) => {
@@ -90,9 +96,26 @@ export default function Navbar() {
                   </a>
                ))}
 
+               {/* Botón integrado de Galería en escritorio */}
+               <button
+                  type="button"
+                  onClick={onIrAGaleria}
+                  className="text-xs tracking-widest uppercase transition-colors duration-200 cursor-pointer"
+                  style={{ color: MFG, background: "transparent", border: "none" }}
+                  onMouseEnter={(event) => {
+                     event.currentTarget.style.color = FG;
+                  }}
+                  onMouseLeave={(event) => {
+                     event.currentTarget.style.color = MFG;
+                  }}
+               >
+                  Galería
+               </button>
+
                {/* Botón de acceso directo a inscripción */}
                <a
                   href="#contacto"
+                  onClick={onIrAInicio}
                   className="text-xs tracking-widest uppercase px-4 py-2 transition-colors duration-200 inline-flex items-center gap-1.5 font-medium"
                   style={{ background: OLI, color: "#FFF" }}
                   onMouseEnter={(event) => {
@@ -129,16 +152,36 @@ export default function Navbar() {
                      href={link.href}
                      className="text-xs tracking-widest uppercase py-1"
                      style={{ color: MFG }}
-                     onClick={() => setMobileOpen(false)}
+                     onClick={() => {
+                        setMobileOpen(false);
+                        if (onIrAInicio) onIrAInicio();
+                     }}
                   >
                      {link.label}
                   </a>
                ))}
+
+               {/* Botón integrado de Galería en vista móvil */}
+               <button
+                  type="button"
+                  className="text-xs tracking-widest uppercase py-1 text-left cursor-pointer"
+                  style={{ color: MFG, background: "transparent", border: "none" }}
+                  onClick={() => {
+                     setMobileOpen(false);
+                     onIrAGaleria();
+                  }}
+               >
+                  Galería
+               </button>
+
                <a
                   href="#contacto"
                   className="text-xs tracking-widest uppercase py-2.5 px-4 text-center font-medium mt-1 inline-flex items-center justify-center gap-1.5"
                   style={{ background: OLI, color: "#FFF" }}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={() => {
+                     setMobileOpen(false);
+                     if (onIrAInicio) onIrAInicio();
+                  }}
                >
                   Inscríbete <ChevronRight className="w-3.5 h-3.5" />
                </a>

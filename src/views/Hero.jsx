@@ -1,22 +1,144 @@
 /**
  * ============================================================================
- * C.D. ALIJARES — PORTADA PRINCIPAL (HERO)
+ * C.D. ALIJARES — PORTADA PRINCIPAL (HERO) CON BARRA DE NAVEGACIÓN
  * ============================================================================
- * Sección de bienvenida a pantalla completa con titulares de impacto,
- * accesos directos principales y fotografía representativa del entorno natural.
+ * Sección de bienvenida a pantalla completa que incorpora:
+ *  - Barra de navegación institucional superior fija (Navbar) con logo,
+ *    enlaces a las secciones de la página y disparador para la vista Galería.
+ *  - Titular principal con tipografía editorial Spectral y colores del club.
+ *  - Accesos directos a inscripción y horarios.
+ *  - Fotografía representativa del bosque con tarjeta flotante de modalidades.
+ * 
+ * Props:
+ *  - onIrAGaleria: Función callback para cambiar la vista principal a la Galería.
  */
 
-import { ArrowDown, ChevronRight } from "lucide-react";
+import { ArrowDown, ChevronRight, Image as ImageIcon } from "lucide-react";
 import { BDR, BGW, BGL, FG, MFG, OLI } from "../constants";
 
-export default function Hero() {
+export default function Hero({ onIrAGaleria }) {
   return (
-    <section id="inicio" className="relative min-h-screen flex items-center" style={{ background: BGL }}>
-      <div className="max-w-7xl mx-auto px-6 pt-24 pb-16 w-full">
+    <section
+      id="inicio"
+      className="relative min-h-screen flex flex-col justify-between"
+      style={{ background: BGL }}
+    >
+      {/* ==================================================================== */}
+      {/* BARRA DE NAVEGACIÓN SUPERIOR (NAVBAR)                                */}
+      {/* ==================================================================== */}
+      <header
+        className="w-full border-b sticky top-0 z-40 backdrop-blur-md transition-colors"
+        style={{
+          borderColor: BDR,
+          background: "rgba(247, 244, 237, 0.92)",
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          {/* Identidad del club: Escudo y denominación */}
+          <a href="#inicio" className="flex items-center gap-3 group">
+            <img
+              src="/Arcoalijares.png"
+              alt="Escudo C.D. Alijares"
+              className="w-11 h-11 object-contain transition-transform duration-200 group-hover:scale-105"
+            />
+            <div className="flex flex-col">
+              <span
+                className="font-bold text-base leading-tight tracking-wide"
+                style={{ fontFamily: "'Spectral', serif", color: FG }}
+              >
+                C.D. Alijares
+              </span>
+              <span
+                className="text-[10px] uppercase tracking-widest"
+                style={{ color: OLI, fontFamily: "'DM Mono', monospace" }}
+              >
+                Tiro con Arco · Toledo
+              </span>
+            </div>
+          </a>
+
+          {/* Menú de navegación principal */}
+          <nav className="hidden md:flex items-center gap-7">
+            <a
+              href="#horarios"
+              className="text-xs uppercase tracking-wider font-medium transition-colors hover:text-emerald-800"
+              style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}
+            >
+              Horarios
+            </a>
+            <a
+              href="#eventos"
+              className="text-xs uppercase tracking-wider font-medium transition-colors hover:text-emerald-800"
+              style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}
+            >
+              Eventos
+            </a>
+            <a
+              href="#cursos"
+              className="text-xs uppercase tracking-wider font-medium transition-colors hover:text-emerald-800"
+              style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}
+            >
+              Cursos
+            </a>
+            <a
+              href="#documentacion"
+              className="text-xs uppercase tracking-wider font-medium transition-colors hover:text-emerald-800"
+              style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}
+            >
+              Documentación
+            </a>
+            <a
+              href="#normativas"
+              className="text-xs uppercase tracking-wider font-medium transition-colors hover:text-emerald-800"
+              style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}
+            >
+              Normativas
+            </a>
+
+            {/* Acceso a la Galería Completa */}
+            <button
+              type="button"
+              onClick={onIrAGaleria}
+              className="flex items-center gap-1.5 text-xs uppercase tracking-wider font-medium transition-colors hover:text-emerald-800"
+              style={{ color: OLI, fontFamily: "'DM Mono', monospace" }}
+            >
+              <ImageIcon className="w-3.5 h-3.5" />
+              <span>Galería</span>
+            </button>
+          </nav>
+
+          {/* Botón de acción directo a Contacto / Inscripción */}
+          <div className="flex items-center gap-3">
+            <a
+              href="#contacto"
+              className="text-xs uppercase tracking-wider font-medium transition-all px-4 py-2.5 border"
+              style={{
+                fontFamily: "'DM Mono', monospace",
+                background: OLI,
+                color: "#FFFFFF",
+                borderColor: OLI,
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "#6A7B2E")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = OLI)}
+            >
+              Contacto
+            </a>
+          </div>
+        </div>
+      </header>
+
+      {/* ==================================================================== */}
+      {/* CONTENIDO PRINCIPAL DEL HERO                                         */}
+      {/* ==================================================================== */}
+      <div className="max-w-7xl mx-auto px-6 pt-16 pb-20 w-full my-auto">
         <div className="grid lg:grid-cols-5 gap-12 items-center">
-          {/* Bloque principal de contenido textual y acciones */}
+          
+          {/* Bloque de títulos y llamadas a la acción */}
           <div className="lg:col-span-3">
-            <p className="text-xs tracking-[0.35em] uppercase mb-6 font-medium" style={{ color: OLI, fontFamily: "'DM Mono', monospace" }}>
+            <p
+              className="text-xs tracking-[0.35em] uppercase mb-6 font-medium"
+              style={{ color: OLI, fontFamily: "'DM Mono', monospace" }}
+            >
               Tiro con Arco · Toledo
             </p>
             <h1
@@ -35,7 +157,7 @@ export default function Hero() {
               C.D. Alijares es un club de tiro con arco tradicional 3D en entorno forestal y cubierto. Competición, formación y naturaleza para todos los niveles.
             </p>
 
-            {/* Botones de acción hacia inscripción y horarios */}
+            {/* Acciones principales */}
             <div className="flex flex-wrap gap-4">
               <a
                 href="#contacto"
@@ -68,10 +190,13 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Bloque visual: Fotografía del entorno de tiro forestal con tarjeta flotante */}
+          {/* Bloque visual lateral: Imagen del bosque y tarjeta de modalidades */}
           <div className="lg:col-span-2 hidden lg:block">
             <div className="relative">
-              <div className="overflow-hidden" style={{ height: "520px", border: `1px solid ${BDR}` }}>
+              <div
+                className="overflow-hidden"
+                style={{ height: "520px", border: `1px solid ${BDR}` }}
+              >
                 <img
                   src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=700&h=900&fit=crop&auto=format"
                   alt="Entorno forestal del campo de tiro C.D. Alijares"
@@ -79,11 +204,20 @@ export default function Hero() {
                   style={{ filter: "saturate(0.8) brightness(0.97)" }}
                 />
               </div>
+
+              {/* Ficha flotante de modalidades reconocidas */}
               <div
                 className="absolute -bottom-4 -left-4 px-5 py-4"
-                style={{ background: BGW, border: `1px solid ${BDR}`, boxShadow: "0 4px 16px rgba(26,24,20,0.08)" }}
+                style={{
+                  background: BGW,
+                  border: `1px solid ${BDR}`,
+                  boxShadow: "0 4px 16px rgba(26,24,20,0.08)",
+                }}
               >
-                <div className="text-xs uppercase tracking-widest mb-1" style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}>
+                <div
+                  className="text-xs uppercase tracking-widest mb-1"
+                  style={{ color: MFG, fontFamily: "'DM Mono', monospace" }}
+                >
                   Modalidades
                 </div>
                 <div
@@ -99,13 +233,21 @@ export default function Hero() {
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
-      {/* Indicador de desplazamiento hacia la sección de horarios */}
-      <a href="#horarios" className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce" style={{ color: OLI }}>
-        <ArrowDown className="w-5 h-5" />
-      </a>
+      {/* Flecha inferior indicadora de scroll hacia Horarios */}
+      <div className="pb-6 flex justify-center">
+        <a
+          href="#horarios"
+          className="animate-bounce p-2"
+          style={{ color: OLI }}
+          aria-label="Ir a la sección de horarios"
+        >
+          <ArrowDown className="w-5 h-5" />
+        </a>
+      </div>
     </section>
   );
 }

@@ -1,16 +1,13 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/Arcoalijares.png" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>C.D. Alijares — Tiro con Arco 3D</title>
-    <!-- Script necesario para que window.netlifyIdentity no sea undefined -->
+    <title>Panel de Gestión — C.D. Alijares</title>
+    <!-- Widget de autenticación para Netlify Identity -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
     <script>
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", (user) => {
@@ -22,5 +19,7 @@
         });
       }
     </script>
+  </body>
+</html>
   </body>
 </html>

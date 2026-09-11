@@ -1,0 +1,32 @@
+# ============================================================================
+# C.D. ALIJARES — CONFIGURACIÓN DE DECAP CMS
+# ============================================================================
+backend:
+  name: git-gateway
+  branch: main
+
+# Directorio donde se almacenan físicamente las imágenes subidas
+media_folder: "public/galeria/uploads"
+# Ruta pública accesible desde el frontend
+public_folder: "/galeria/uploads"
+
+collections:
+  - name: "albumes"
+    label: "Álbumes de Tiradas"
+    folder: "src/data/galeria"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    format: "json"
+    fields:
+      - { label: "Título del Evento", name: "titulo", widget: "string" }
+      - { label: "Fecha de la Tirada", name: "fecha", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
+      - label: "Categoría"
+        name: "categoria"
+        widget: "select"
+        options: ["Tirada 3D", "Pabellón", "Campeonato CLM", "Social / Entrenamientos"]
+      - { label: "Foto de Portada", name: "portada", widget: "image" }
+      - label: "Colección de Fotos"
+        name: "fotos"
+        widget: "list"
+        summary: "{{fields.imagen}}"
+        field: { label: "Imagen", name: "imagen", widget: "image" }
