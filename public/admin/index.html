@@ -3,23 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Panel de Gestión — C.D. Alijares</title>
-    <!-- Widget de autenticación para Netlify Identity -->
+    <title>Panel de Administración — C.D. Alijares</title>
+
+    <!-- Enlace explícito a la configuración (evita la pantalla en blanco) -->
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+
+    <!-- Widget de autenticación de Netlify Identity -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
-  </body>
-</html>
+    <!-- Motor de Decap CMS con versión estable -->
+    <script src="https://unpkg.com/decap-cms@3.3.3/dist/decap-cms.js"></script>
   </body>
 </html>
