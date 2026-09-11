@@ -1,9 +1,10 @@
 {
-  "titulo": "Tirada Inauguración Temporada",
-  "fecha": "2026-03-15",
-  "portada": "/Arcoalijares.png",
+  "titulo": "Tirada Invierno",
+  "fecha": "2025-12-17",
+  "portada": "/galeria/uploads/archery-snow-1140x760-1-87435589.jpg",
   "fotos": [
-    { "imagen": "/Arcoalijares.png" },
-    { "imagen": "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200&fit=crop" }
-  ]
+    "/galeria/uploads/epc-archery72-scaled-3195902136.jpg",
+    "/galeria/uploads/maxresdefault-3536478880.jpg"
+  ],
+  "categoria": "Tirada 3D"
 }
