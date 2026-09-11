@@ -43,21 +43,12 @@ export default function Galeria({ onVolver }) {
 
         {/* Encabezado minimalista sin bordes divisorios */}
         <div className="mb-20">
-          <span
-            className="text-[11px] tracking-[0.25em] uppercase block mb-3 font-medium"
-            style={{ color: OLI, fontFamily: "'DM Mono', monospace" }}
-          >
-            Archivo Gráfico
-          </span>
           <h1
             className="text-4xl sm:text-5xl font-bold tracking-tight mb-4"
             style={{ fontFamily: "'Spectral', Georgia, serif", color: FG }}
           >
             Galería del Club
           </h1>
-          <p className="text-base max-w-xl leading-relaxed" style={{ color: MFG }}>
-            Recorrido cronológico de nuestras jornadas de tiro 3D, entrenamientos y competiciones.
-          </p>
         </div>
 
         {/* Lista de tiradas: separación orgánica por espacios en lugar de líneas */}
