@@ -1,12 +1,11 @@
 {
-  "titulo": "Tirada Inauguración Temporada",
+  "titulo": "Tirada Inauguración de Temporada",
   "fecha": "2026-03-15",
   "categoria": "Tirada 3D",
   "portada": "/Arcoalijares.png",
   "fotos": [
     {
       "imagen": "/Arcoalijares.png"
-    },
-    "/galeria/uploads/file_051_zwe5.jpg"
+    }
   ]
 }
